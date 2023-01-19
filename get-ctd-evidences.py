@@ -61,7 +61,7 @@ def parse_args_init():
         default=datetime.date.today(),
     )
     parser.add_argument(
-        "--outdir", help="Output directory.", type=str, default="CTD_evidencies"
+        "--outdir", help="Output directory.", type=str, default="CTD_evidences"
     )
 
     return parser

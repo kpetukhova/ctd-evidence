@@ -14,15 +14,15 @@ optional arguments:
 
 # How to use
 
-Copy `ctd_format.py` to repository of interest and run:
+Copy `get-ctd-evidences.py` to repository of interest and run:
 
 ```
-python ctd_format.py --name <your github username>
+python get-ctd-evidences.py --name <your github username>
 ```
 e.g.
 
 ```
-python ctd_format.py --name "Ksenia Petukhova"
+python get-ctd-evidences.py --name "Ksenia Petukhova"
 ```
 
-By default, evidence files will be saved to `CTD_evidencies/<start_date>_<end_date>` folder.
+By default, evidence files will be saved to "CTD_evidences/<start_date>_<end_date>" folder.
