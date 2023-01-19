@@ -25,4 +25,4 @@ e.g.
 python ctd_format.py --name "Ksenia Petukhova"
 ```
 
-By default, evidence files will be saved to "CTD_evidencies/<start_date>_<end_date>" folder.
+By default, evidence files will be saved to `CTD_evidencies/<start_date>_<end_date>` folder.
