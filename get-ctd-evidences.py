@@ -2,6 +2,7 @@ import os
 import argparse
 import re
 import datetime
+import logging
 
 
 def get_start_date():
@@ -23,7 +24,7 @@ def remove_special_characters(line):
 def create_commitfile(username, start_date, end_date):
     ctdline = (
         'git log --pretty=format:"%ad - %an: %s"'
-        f" --after={start_date} --until={end_date} --author=\"{username}\" --oneline >"
+        f' --after={start_date} --until={end_date} --author="{username}" --oneline >'
         " commit_history.txt"
     )
     os.system(ctdline)
@@ -38,6 +39,7 @@ def create_evidence():
             lcommit = commit.split(" ")
             diff_name = "-".join(lcommit) + ".diff"
             save_diff_cmd = f"git show {commit_number} > {diff_name}"
+            logging.info(f"{commit}, {diff_name}")
             os.system(save_diff_cmd)
 
 
@@ -68,14 +70,29 @@ def parse_args_init():
 
 
 if __name__ == "__main__":
+
     parser = parse_args_init()
     args = parser.parse_args()
-
     result_dir = os.path.join(
         args.outdir, str(args.start_date) + "_" + str(args.end_date)
     )
+
+    log_filename = f"ctd_{str(args.start_date)}_{str(args.end_date)}.log"
+    filehandler = logging.FileHandler(log_filename, "w")
+    streamhandler = logging.StreamHandler()
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=(
+            streamhandler,
+            filehandler,
+        ),
+    )
+
     os.makedirs(result_dir, exist_ok=True)
     os.chdir(result_dir)
 
     create_commitfile(args.name, args.start_date, args.end_date)
     create_evidence()
+    logging.info(f"Diffs are stored in {result_dir}")
